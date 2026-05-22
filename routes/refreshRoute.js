@@ -5,7 +5,6 @@ const refreshController = require('../controller/refreshTokenController'); // ad
 // -------------------
 // /refresh
 // -------------------
-console.log("REFRESH ROUTE LOADED");
 router.get('/', refreshController.refreshToken);
 
 module.exports = router;

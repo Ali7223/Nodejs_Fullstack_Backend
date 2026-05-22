@@ -1,3 +1,4 @@
+const ROLES_LIST = require("../config/roles_list");
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
 
@@ -15,7 +16,7 @@ const registerUser = async (req, res) => {
     const newUser = new User({
       username,
       password: hashedPassword,
-      role
+      roles : [ROLES_LIST.User] // Default role is User, you can modify this to allow role assignment during registration
     });
     await newUser.save();
     res.status(201).json({ message: "User registered successfully" });

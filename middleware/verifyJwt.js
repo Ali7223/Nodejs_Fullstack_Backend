@@ -1,8 +1,8 @@
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const verifyJwt = (req, res, next) => {
-    const authHeader = req.headers["authorization"] //|| req.headers["Authorization"];
-    if (!authHeader) {
+    const authHeader = req.headers["authorization"] || req.headers["Authorization"];
+    if (!authHeader.startsWith('Bearer ')) {
         return res.status(401).json({ message: "Unauthorized" });
     }
     const token = authHeader.split(" ")[1];
@@ -10,8 +10,8 @@ const verifyJwt = (req, res, next) => {
         if (err) {
             return res.status(403).json({ message: "Invalid token" });
         }
-        req.userId = decoded.id;
-        req.userRole = decoded.role;
+        req.username = decoded.username;
+        req.userRole = decoded.roles;
         console.log("Decoded JWT:", decoded);
         next();
     });

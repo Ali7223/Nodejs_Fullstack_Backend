@@ -8,16 +8,14 @@ const logger = require('./middleware/logger')
 const Blog = require('./models/blog')
 const cookieParser = require('cookie-parser');
 const verifyJwt = require('./middleware/verifyJwt')
-const credentials = require("./middleware/credentials")
+//const credentials = require("./middleware/credentials")
 
 connectDB();
-app.use(credentials);
+//app.use(credentials);
 app.use(cors(corsOptions));
 app.use(logger);
 app.use(express.json());
 app.use(cookieParser());
-
-
 
 
 

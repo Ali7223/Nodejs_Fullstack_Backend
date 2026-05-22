@@ -17,18 +17,19 @@ const loginUser = async (req, res) => {
     console.log("USER:", user);
     const isMatch = await bcrypt.compare(password, user.password);
     if (isMatch) {
-      const roles = user.role;
+      const roles = user.roles;
+      console.log("USER ROLES:", roles);
       const accessToken = jwt.sign(
-        { id: user._id, role: roles },
+        { username: user.username, roles: roles },
         process.env.ACCESS_TOKEN_SECRET,
         { expiresIn: "15m" },
       );
       const refreshToken = jwt.sign(
-        { id: user._id, role: roles },
+        { username: user.username, roles: roles },
         process.env.REFRESH_TOKEN_SECRET,
         { expiresIn: "1d" },
       );
-     
+
       res.cookie("jwt", refreshToken, {
         httpOnly: true,
         //secure: true,
